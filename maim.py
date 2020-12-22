@@ -42,9 +42,9 @@ def train():
     y = np.array(y).reshape((-1,1))
 
     encoder = OneHotEncoder(categories='auto')
-    labels_np_onehot = encoder.fit_transform(y).toarray()
+    labels_transformed = encoder.fit_transform(y).toarray()
 
-    X_train, X_test, y_train, y_test = train_test_split(x, labels_np_onehot)
+    X_train, X_test, y_train, y_test = train_test_split(x, labels_transformed)
     model = keras.Sequential()
     model.add(keras.layers.Dense(32,input_dim = X_train.shape[1],  activation='relu'))
     model.add(keras.layers.Dense(y_train.shape[1], activation='softmax'))
