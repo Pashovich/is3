@@ -45,9 +45,8 @@ def train():
     labels_np_onehot = encoder.fit_transform(y).toarray()
 
     X_train, X_test, y_train, y_test = train_test_split(x, labels_np_onehot)
-    print(X_train.shape)
     model = keras.Sequential()
-    model.add(keras.layers.Dense(32,input_dim = 35,  activation='relu'))
+    model.add(keras.layers.Dense(32,input_dim = X_train.shape[1],  activation='relu'))
     model.add(keras.layers.Dense(y_train.shape[1], activation='softmax'))
 
     model.summary()
