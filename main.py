@@ -19,7 +19,7 @@ def load_data(path):
             temp = load_file(file_name,path)
             xdata.append([int(i) for i in temp.split()])
             ydata.append(file_name)
-    return np.array(xdata), ydata
+    return xdata, ydata
 
 def multiply(x,y, num=1000):
     final_x = []
