@@ -46,10 +46,13 @@ def train():
     labels_transformed = encoder.fit_transform(y).toarray()
 
     X_train, X_test, y_train, y_test = train_test_split(x, labels_transformed)
-    model = keras.Sequential()
-    model.add(keras.layers.Dense(32,input_dim = X_train.shape[1],  activation='relu'))
-    model.add(keras.layers.Dense(y_train.shape[1], activation='softmax'))
+    
+    input_layer = keras.layers.Input(shape=(35,))
+    d_1 = keras.layers.Dense(32, activation='relu')(input_layer)
+    d_2 = keras.layers.Dense(16, activation='relu')(d_1)
+    d_2 = keras.layers.Dense(y_train.shape[1], activation='softmax')(d_1)
 
+    model = keras.models.Model(input_layer,d_2)
     model.summary()
 
     model.compile(optimizer='adam',
