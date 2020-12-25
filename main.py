@@ -37,16 +37,18 @@ def print_matrix(temp):
     print(np.array(temp).reshape(7,5))
 
 def train():
-    x_data ,y_data = load_data('data')
-    x,y = multiply(x_data,y_data)
+  #Функция тренировки модели
+    x_data ,y_data = load_from_numbers()# Загружаем данные
+    x,y = multiply(x_data,y_data)# Увеличиваем размер датасета
 
     y = np.array(y).reshape((-1,1))
 
     encoder = OneHotEncoder(categories='auto')
-    labels_transformed = encoder.fit_transform(y).toarray()
+    labels_transformed = encoder.fit_transform(y).toarray()#Кодируем данные в OneHot вектор
 
-    X_train, X_test, y_train, y_test = train_test_split(x, labels_transformed)
-    
+
+    X_train, X_test, y_train, y_test = train_test_split(x, labels_transformed)#Разделяем данные на тренировочный и обучающий наборы
+    #Описываем модель
     input_layer = keras.layers.Input(shape=(35,))
     d_1 = keras.layers.Dense(32, activation='relu')(input_layer)
     d_2 = keras.layers.Dense(16, activation='relu')(d_1)
@@ -54,13 +56,12 @@ def train():
 
     model = keras.models.Model(input_layer,d_2)
     model.summary()
-
+    #Выбираем оптимизатор и метрики
     model.compile(optimizer='adam',
                 loss='categorical_crossentropy',
                 metrics=['accuracy'])
-
+    #Подаем данные для обучения
     model.fit(X_train, y_train, epochs=10, batch_size=128, validation_data = (X_test, y_test))
-
     for dat in x_data:
         print_matrix(dat)
         predicted_outputs = predict(model,dat)
@@ -68,7 +69,8 @@ def train():
     model.save('model.h5')
 
 def test():
-    model = keras.models.load_model('model.h5')
+    #функция тестирования
+    model = keras.models.load_model('model.h5') #загрузка модели
     data = load_file('testfile')
     number =  [int(i) for i in data.split()]
     predicted_outputs = predict(model,number)
