@@ -1,4 +1,5 @@
 # Настройка
+* Настройка производится в cmd. 1) открыть cmd 2) зайти в папку с проектом
 * Создать виртуальное окружение python -m venv env
 * Активировать env\Scripts\activate.bat
 * Установить зависимости pip install -r requirements.txt
