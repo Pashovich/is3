@@ -7,11 +7,13 @@ import argparse
 
 
 def load_file(file, path = './'):
+    #загрузка одного файла
     with open(os.path.join(path,file),'r') as f:
         temp = f.read().replace('\n', ' ')
     return temp
 
 def load_data(path):
+    #загрузка всех файлов
     xdata = []
     ydata = []
     files = os.listdir(path)
@@ -22,6 +24,7 @@ def load_data(path):
     return xdata, ydata
 
 def multiply(x,y, num=1000):
+    #размножение датасета
     final_x = []
     final_y = []
     for temp_x,temp_y in zip(x,y):
@@ -31,9 +34,11 @@ def multiply(x,y, num=1000):
     return np.array(final_x),np.array(final_y)
 
 def predict(model,number):
+    #метод предсказаний
     return model.predict(np.asarray([number]))
 
 def print_matrix(temp):
+    #вывод матрицы
     print(np.array(temp).reshape(7,5))
 
 def train():
