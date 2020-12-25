@@ -50,7 +50,7 @@ def train():
     input_layer = keras.layers.Input(shape=(35,))
     d_1 = keras.layers.Dense(32, activation='relu')(input_layer)
     d_2 = keras.layers.Dense(16, activation='relu')(d_1)
-    d_2 = keras.layers.Dense(y_train.shape[1], activation='softmax')(d_1)
+    d_2 = keras.layers.Dense(y_train.shape[1], activation='softmax')(d_2)
 
     model = keras.models.Model(input_layer,d_2)
     model.summary()
@@ -60,6 +60,7 @@ def train():
                 metrics=['accuracy'])
 
     model.fit(X_train, y_train, epochs=10, batch_size=128, validation_data = (X_test, y_test))
+
     for dat in x_data:
         print_matrix(dat)
         predicted_outputs = predict(model,dat)
